@@ -185,3 +185,86 @@ refreshButton.on("click", function () {
         })
     });
 });
+
+
+
+window.onload = populate()
+
+function populate() {
+    // Testing to creat a drop down menu
+    var citySelect = document.getElementById("city-select");
+
+    // var uniqueCity = [];
+
+    for (i = 0; i < tableData.length; i++) {
+        if (tableData[i]['city'] === -1) {
+            citySelect.innerHTML = citySelect.innerHTML +
+                '<option value="' + tableData[i].city + '">' + tableData[i].city+ '</option>';
+        }
+    }
+
+    // console.log(uniqueCity)
+
+    // for (var i = 0; i < uniqueCity.length; i++) {
+
+    //     citySelect.innerHTML = citySelect.innerHTML +
+    //         '<option value="' + uniqueCity[i] + '">' + uniqueCity[i] + '</option>';
+
+    // };
+    // console.log(uniqueCity)
+};
+
+
+function show(tableData) {
+
+    //console.log(tableData);
+
+    var filteredData = tableData.filter(data => data.city === tableData.value);
+
+    // Displayr filtered data on console
+    console.log(filteredData);
+    //console.log(uniqueCity);
+    console.log(data.city);
+
+    // remove any data from the table
+    tbody.html("");
+
+    // Loop through filered data and append to table
+    filteredData.forEach(sighting => {
+        var row = tbody.append("tr");
+        Object.entries(sighting).forEach(([, value]) => {
+            var tableData = row.append("td");
+            tableData.text(value);
+        })
+    });
+
+}
+
+
+// citySelect.on("click", function () {
+//     // Select the input element and get the raw HTML node
+//     var inputElement = d3.select("#city-select");
+
+//     // Get the value property of the input element
+//     var inputValue = inputElement.property("value");
+
+//     var filteredData = tableData.filter(data => data.city.toLowerCase() === inputValue.toLowerCase());
+
+
+//     // Displayr filtered data on console
+//     console.log(filteredData);
+
+//     // remove any data from the table
+//     tbody.html("");
+
+//     // Loop through filered data and append to table
+//     filteredData.forEach(sighting => {
+//         var row = tbody.append("tr");
+//         Object.entries(sighting).forEach(([, value]) => {
+//             var tableData = row.append("td");
+//             tableData.text(value);
+//         })
+//     });
+// });
+
+
