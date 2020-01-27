@@ -38,50 +38,43 @@
                     <ul class="list-group" id="filters">
 
                       <li class="filter list-group-item">
-                        <label for="date">Enter a Date</label>
-                        <input class="form-control" id="datetime" type="text" placeholder="1/11/2011">
-                        <button id="date-filter-btn" type="button" class="btn btn-default">Filter by Date</button>
+                        <label for="date">Select a Date</label>
+                        <select id="date-select" onchange="showDate(this)" class="custom-select custom-select-sm">
+                          <option selected>-- Select --</option>
+                        </select>
                       </li>
 
                       <li class="filter list-group-item">
-                        <label for="city">Enter a City</label>
-                        <input class="form-control" id="city" type="text" placeholder="naples">
-                        <button id="city-filter-btn" type="button" class="btn btn-default">Filter by City</button>
+                        <label for="city">Select a City</label>
+                        <select id="city-select" onchange="showCity(this)" class="custom-select custom-select-sm">
+                          <option selected>-- Select --</option>
+                        </select>
                       </li>
 
                       <li class="filter list-group-item">
-                        <label for="state">Enter a State</label>
-                        <input class="form-control" id="state" type="text" placeholder="wi">
-                        <button id="state-filter-btn" type="button" class="btn btn-default">Filter by State</button>
+                        <label for="state">Select a State</label>
+                        <select id="state-select" onchange="showState(this)" class="custom-select custom-select-sm">
+                          <option selected>-- Select --</option>
+                        </select>
                       </li>
 
                       <li class="filter list-group-item">
-                        <label for="country">Enter a Country</label>
-                        <input class="form-control" id="country" type="text" placeholder="us">
-                        <button id="country-filter-btn" type="button" class="btn btn-default">Filter by Country</button>
+                        <label for="country">Select a Country</label>
+                        <select id="country-select" onchange="showCountry(this)" class="custom-select custom-select-sm">
+                          <option selected>-- Select --</option>
+                        </select>
                       </li>
 
                       <li class="filter list-group-item">
-                        <label for="shape">Enter a Shape</label>
-                        <input class="form-control" id="shape" type="text" placeholder="disk/unknown">
-                        <button id="shape-filter-btn" type="button" class="btn btn-default">Filter by Shape</button>
+                        <label for="shape">Select a UFO Shape</label>
+                        <select id="shape-select" onchange="showShape(this)" class="custom-select custom-select-sm">
+                          <option selected>-- Select --</option>
+                        </select>
                       </li>
 
                       <li class="filter list-group-item">
                         <button id="refresh-btn" type="button" class="btn btn-default">Refresh Table</button>
                       </li>
-
-                      <li class="filter list-group-item">
-                        <label for="city-s">Select a city</label>
-                        <select id="city-select" class="custom-select custom-select-sm" onchange="show(this)">
-                          <option selected>-- Select --</option>
-                          
-                          <!-- <option value="1">One</option>
-                          <option value="2">Two</option>
-                          <option value="3">Three</option> -->
-                        </select>
-                      </li>
-
 
                     </ul>
                   </div>

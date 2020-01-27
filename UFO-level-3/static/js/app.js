@@ -4,23 +4,23 @@ var tableData = data;
 // Define the table
 var tbody = d3.select("tbody");
 
-// Define the date filter button
-var dateButton = d3.select("#date-filter-btn");
-
-// Define the city filter button
-var cityButton = d3.select("#city-filter-btn");
-
-// Define the state filter button
-var stateButton = d3.select("#state-filter-btn");
-
-// Define the country filter button
-var countryButton = d3.select("#country-filter-btn");
-
-// Define the shape filer button
-var shapeButton = d3.select("#shape-filter-btn");
-
 // Define the refresh button
 var refreshButton = d3.select("#refresh-btn");
+
+// When browser loads populate Date dropdown
+window.onload = populateDate()
+
+// When browser loads populate City dropdown
+window.onload = populateCity()
+
+// When browser loads populate State dropdown
+window.onload = populateState()
+
+// When browser loads populate Country dropdown
+window.onload = populateCountry()
+
+// When browser loads populate Shape dropdown
+window.onload = populateShape()
 
 // Looping through the sighting data and appending data per cell using
 // the 'td' html tag
@@ -31,46 +31,37 @@ data.forEach(sighting => {
         //console.log(key, value);
         var tableData = row.append("td");
         tableData.text(value);
+
     })
 });
 
+// 1.1
+// Drop down list for Date
+function populateDate() {
 
-// Date button function
-dateButton.on("click", function () {
-    // Select the input element and get the raw HTML node
-    var inputElement = d3.select("#datetime");
+    // selecting tag
+    var select = document.getElementById("date-select");
 
-    // Get the value property of the input element
-    var inputValue = inputElement.property("value");
+    // empty object to store list
+    var unique = {};
 
-    var filteredData = tableData.filter(data => data.datetime === inputValue);
+    // for loop to find unique values
+    tableData.forEach(data => {
+        unique[data.datetime] = unique[data.datetime] || {};
+    })
 
-    // Displayr filtered data on console
-    console.log(filteredData);
+    // Creating dropdown list
+    Object.entries(unique).forEach(([val]) => {
+        select.innerHTML = select.innerHTML +
+            '<option value="' + val + '">' + val + '</option>';
+    })
+};
+// 1.2
+// Filter function for Date to display table
+function showDate(x) {
 
-    // remove any data from the table
-    tbody.html("");
-
-    // Loop through filered data and append to table
-    filteredData.forEach(sighting => {
-        var row = tbody.append("tr");
-        Object.entries(sighting).forEach(([, value]) => {
-            var tableData = row.append("td");
-            tableData.text(value);
-        })
-    });
-});
-
-
-// City button function
-cityButton.on("click", function () {
-    // Select the input element and get the raw HTML node
-    var inputElement = d3.select("#city");
-
-    // Get the value property of the input element
-    var inputValue = inputElement.property("value");
-
-    var filteredData = tableData.filter(data => data.city.toLowerCase() === inputValue.toLowerCase());
+    // Filtering data with specified variable
+    var filteredData = tableData.filter(data => data.datetime === x.options[x.selectedIndex].text);
 
     // Displayr filtered data on console
     console.log(filteredData);
@@ -86,45 +77,38 @@ cityButton.on("click", function () {
             tableData.text(value);
         })
     });
-});
+};
 
 
-// State button function
-stateButton.on("click", function () {
-    // Select the input element and get the raw HTML node
-    var inputElement = d3.select("#state");
+// 2.1
+// Drop down list for City
+function populateCity() {
 
-    // Get the value property of the input element
-    var inputValue = inputElement.property("value");
+    // selecting tag
+    var select = document.getElementById("city-select");
 
-    var filteredData = tableData.filter(data => data.state.toLowerCase() === inputValue.toLowerCase());
+    // empty object to store list
+    var unique = {};
 
-    // Displayr filtered data on console
-    console.log(filteredData);
+    // for loop to find unique values
+    tableData.forEach(data => {
+        unique[data.city] = unique[data.city] || {};
+    })
 
-    // remove any data from the table
-    tbody.html("");
+    // Creating dropdown list
+    Object.entries(unique).forEach(([val]) => {
+        select.innerHTML = select.innerHTML +
+            '<option value="' + val + '">' + val + '</option>';
+    })
+};
+// 2.2
+// Filter function for City to display table
+function showCity(x) {
 
-    // Loop through filered data and append to table
-    filteredData.forEach(sighting => {
-        var row = tbody.append("tr");
-        Object.entries(sighting).forEach(([, value]) => {
-            var tableData = row.append("td");
-            tableData.text(value);
-        })
-    });
-});
+    console.log(x.options[x.selectedIndex].text);
 
-
-// Country button function
-countryButton.on("click", function () {
-    // Select the input element and get the raw HTML node
-    var inputElement = d3.select("#country");
-
-    // Get the value property of the input element
-    var inputValue = inputElement.property("value");
-
-    var filteredData = tableData.filter(data => data.country.toLowerCase() === inputValue.toLowerCase());
+    // Filtering data with specified variable
+    var filteredData = tableData.filter(data => data.city === x.options[x.selectedIndex].text);
 
     // Displayr filtered data on console
     console.log(filteredData);
@@ -140,18 +124,35 @@ countryButton.on("click", function () {
             tableData.text(value);
         })
     });
-});
+};
 
+// 3.1
+// Drop down list for State
+function populateState() {
 
-// Shape button function
-shapeButton.on("click", function () {
-    // Select the input element and get the raw HTML node
-    var inputElement = d3.select("#shape");
+    // selecting tag
+    var select = document.getElementById("state-select");
 
-    // Get the value property of the input element
-    var inputValue = inputElement.property("value");
+    // empty object to store list
+    var unique = {};
 
-    var filteredData = tableData.filter(data => data.shape.toLowerCase() === inputValue.toLowerCase());
+    // for loop to find unique values
+    tableData.forEach(data => {
+        unique[data.state] = unique[data.state] || {};
+    })
+
+    // Creating dropdown list
+    Object.entries(unique).forEach(([val]) => {
+        select.innerHTML = select.innerHTML +
+            '<option value="' + val + '">' + val + '</option>';
+    })
+};
+// 3.2
+// Filter function for State to display table
+function showState(x) {
+
+    // Filtering data with specified variable
+    var filteredData = tableData.filter(data => data.state === x.options[x.selectedIndex].text);
 
     // Displayr filtered data on console
     console.log(filteredData);
@@ -167,8 +168,95 @@ shapeButton.on("click", function () {
             tableData.text(value);
         })
     });
-});
+}
 
+//4.1
+// Drop down list for Country
+function populateCountry() {
+
+    // selecting tag
+    var select = document.getElementById("country-select");
+
+    // empty object to store list
+    var unique = {};
+
+    // for loop to find unique values
+    tableData.forEach(data => {
+        unique[data.country] = unique[data.country] || {};
+    })
+
+    // Creating dropdown list
+    Object.entries(unique).forEach(([val]) => {
+        select.innerHTML = select.innerHTML +
+            '<option value="' + val + '">' + val + '</option>';
+    })
+};
+// 4.2
+// Filter function for Country to display table
+function showCountry(x) {
+
+    // Filtering data with specified variable
+    var filteredData = tableData.filter(data => data.country === x.options[x.selectedIndex].text);
+
+    // Displayr filtered data on console
+    console.log(filteredData);
+
+    // remove any data from the table
+    tbody.html("");
+
+    // Loop through filered data and append to table
+    filteredData.forEach(sighting => {
+        var row = tbody.append("tr");
+        Object.entries(sighting).forEach(([, value]) => {
+            var tableData = row.append("td");
+            tableData.text(value);
+        })
+    });
+}
+
+// 5.1
+// Drop down list for Shape
+function populateShape() {
+
+    // selecting tag
+    var select = document.getElementById("shape-select");
+
+    // empty object to store list
+    var unique = {};
+
+    // for loop to find unique values
+    tableData.forEach(data => {
+        unique[data.shape] = unique[data.shape] || {};
+    })
+
+    // Creating dropdown list
+    Object.entries(unique).forEach(([val]) => {
+        select.innerHTML = select.innerHTML +
+            '<option value="' + val + '">' + val + '</option>';
+    })
+};
+// 5.2
+// Filter function for Shape to display table
+function showShape(x) {
+
+    // Filtering data with specified variable
+    var filteredData = tableData.filter(data => data.shape === x.options[x.selectedIndex].text);
+
+    // Displayr filtered data on console
+    console.log(filteredData);
+
+    // remove any data from the table
+    tbody.html("");
+
+    // Loop through filered data and append to table
+    filteredData.forEach(sighting => {
+        var row = tbody.append("tr");
+        Object.entries(sighting).forEach(([, value]) => {
+            var tableData = row.append("td");
+            tableData.text(value);
+        })
+    });
+}
 
 // Refresh button function
 refreshButton.on("click", function () {
@@ -179,92 +267,9 @@ refreshButton.on("click", function () {
     // Displays table 
     data.forEach(sighting => {
         var row = tbody.append("tr");
-        Object.entries(sighting).forEach(([key, value]) => {
-            var tableData = row.append("td");
-            tableData.text(value);
-        })
-    });
-});
-
-
-
-window.onload = populate()
-
-function populate() {
-    // Testing to creat a drop down menu
-    var citySelect = document.getElementById("city-select");
-
-    // var uniqueCity = [];
-
-    for (i = 0; i < tableData.length; i++) {
-        if (tableData[i]['city'] === -1) {
-            citySelect.innerHTML = citySelect.innerHTML +
-                '<option value="' + tableData[i].city + '">' + tableData[i].city+ '</option>';
-        }
-    }
-
-    // console.log(uniqueCity)
-
-    // for (var i = 0; i < uniqueCity.length; i++) {
-
-    //     citySelect.innerHTML = citySelect.innerHTML +
-    //         '<option value="' + uniqueCity[i] + '">' + uniqueCity[i] + '</option>';
-
-    // };
-    // console.log(uniqueCity)
-};
-
-
-function show(tableData) {
-
-    //console.log(tableData);
-
-    var filteredData = tableData.filter(data => data.city === tableData.value);
-
-    // Displayr filtered data on console
-    console.log(filteredData);
-    //console.log(uniqueCity);
-    console.log(data.city);
-
-    // remove any data from the table
-    tbody.html("");
-
-    // Loop through filered data and append to table
-    filteredData.forEach(sighting => {
-        var row = tbody.append("tr");
         Object.entries(sighting).forEach(([, value]) => {
             var tableData = row.append("td");
             tableData.text(value);
         })
     });
-
-}
-
-
-// citySelect.on("click", function () {
-//     // Select the input element and get the raw HTML node
-//     var inputElement = d3.select("#city-select");
-
-//     // Get the value property of the input element
-//     var inputValue = inputElement.property("value");
-
-//     var filteredData = tableData.filter(data => data.city.toLowerCase() === inputValue.toLowerCase());
-
-
-//     // Displayr filtered data on console
-//     console.log(filteredData);
-
-//     // remove any data from the table
-//     tbody.html("");
-
-//     // Loop through filered data and append to table
-//     filteredData.forEach(sighting => {
-//         var row = tbody.append("tr");
-//         Object.entries(sighting).forEach(([, value]) => {
-//             var tableData = row.append("td");
-//             tableData.text(value);
-//         })
-//     });
-// });
-
-
+});
